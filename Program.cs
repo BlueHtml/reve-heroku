@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Options;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,11 +13,12 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.Configure<ReveHelper>(builder.Configuration.GetSection("Reve"));
+//builder.Services.Configure<ReveHelper>(builder.Configuration.GetSection("Reve"));
 
 builder.Services.AddTransient<AddHeaderHandler>();
 builder.Services.AddHttpClient<ReveClient>(c =>
 {
+    c.BaseAddress = ReveHelper.GetBaseAddress();
     c.DefaultRequestHeaders.Connection.Add("keep-alive");
     c.Timeout = TimeSpan.FromSeconds(10);
 }).AddHttpMessageHandler<AddHeaderHandler>()
@@ -33,10 +33,10 @@ builder.Services.AddHttpClient<ReveClient>(c =>
 var app = builder.Build();
 
 await ReveHelper.LoadCookie();
-using (var scope = app.Services.CreateScope())
-{
-    scope.ServiceProvider.GetService<IOptionsMonitor<ReveHelper>>().CurrentValue.ToString();
-}
+//using (var scope = app.Services.CreateScope())
+//{
+//    scope.ServiceProvider.GetService<IOptionsMonitor<ReveHelper>>().CurrentValue.ToString();
+//}
 
 // Configure the HTTP request pipeline.
 

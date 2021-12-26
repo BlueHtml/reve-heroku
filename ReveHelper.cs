@@ -6,9 +6,9 @@ namespace Reve;
 
 public class ReveHelper
 {
-    public static string Origin { get; set; }
-    public static string UserName { get; set; }
-    public static string Password { get; set; }
+    public static string Origin = Environment.GetEnvironmentVariable("Origin").TrimEnd('/');
+    public static string UserName = Environment.GetEnvironmentVariable("UserName");
+    public static string Password = Environment.GetEnvironmentVariable("Password");
 
     public static string Cookie { get; private set; }
 

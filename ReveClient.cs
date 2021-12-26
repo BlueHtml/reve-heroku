@@ -9,7 +9,6 @@ public class ReveClient
 
     public ReveClient(HttpClient client, ILogger<ReveClient> logger)
     {
-        client.BaseAddress = ReveHelper.GetBaseAddress();
         _client = client;
         _log = logger;
     }
