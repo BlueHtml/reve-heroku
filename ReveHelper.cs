@@ -73,9 +73,18 @@ public class ReveHelper
         if (File.Exists(PATH))
         {
             Cookie = await File.ReadAllTextAsync(PATH);
+            Console.WriteLine("cookie load ok");
+        }
+        else
+        {
+            Console.WriteLine("cookie not exist");
         }
     }
-    static async Task SaveCookie() => await File.WriteAllTextAsync(PATH, Cookie);
+    static async Task SaveCookie()
+    {
+        await File.WriteAllTextAsync(PATH, Cookie);
+        Console.WriteLine("cookie save ok");
+    }
 
     #endregion
 
