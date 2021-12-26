@@ -43,48 +43,57 @@ public class ReveHelper
 
     #region api
 
-    //public static async Task LoadCookie()
-    //{
-    //    HttpClient client = GetDbClient();
-    //    Cookie = await client.GetStringAsync("?ReveCk");
-    //    client.Dispose();
-    //}
-    //static async Task SaveCookie()
-    //{
-    //    HttpClient client = GetDbClient();
-    //    await client.PutAsync($"?ReveCk={Cookie}", null);
-    //    client.Dispose();
-    //}
+    public static async Task LoadCookie()
+    {
+        HttpClient client = GetDbClient();
+        Cookie = await client.GetStringAsync("?ReveCk");
+        client.Dispose();
+        if (string.IsNullOrWhiteSpace(Cookie))
+        {
+            Console.WriteLine("cookie not exist");
+        }
+        else
+        {
+            Console.WriteLine("cookie load ok");
+        }
+    }
+    static async Task SaveCookie()
+    {
+        HttpClient client = GetDbClient();
+        await client.PutAsync($"?ReveCk={Cookie}", null);
+        client.Dispose();
+        Console.WriteLine("cookie save ok");
+    }
 
-    //static HttpClient GetDbClient()
-    //{
-    //    HttpClient client = new() { BaseAddress = new(Environment.GetEnvironmentVariable("DbUrl")) };
-    //    client.DefaultRequestHeaders.Add("Secret", Environment.GetEnvironmentVariable("Secret"));
-    //    return client;
-    //}
+    static HttpClient GetDbClient()
+    {
+        HttpClient client = new() { BaseAddress = new(Environment.GetEnvironmentVariable("DbUrl")) };
+        client.DefaultRequestHeaders.Add("Secret", Environment.GetEnvironmentVariable("Secret"));
+        return client;
+    }
 
     #endregion
 
     #region File
 
-    const string PATH = "Cookie";
-    public static async Task LoadCookie()
-    {
-        if (File.Exists(PATH))
-        {
-            Cookie = await File.ReadAllTextAsync(PATH);
-            Console.WriteLine("cookie load ok");
-        }
-        else
-        {
-            Console.WriteLine("cookie not exist");
-        }
-    }
-    static async Task SaveCookie()
-    {
-        await File.WriteAllTextAsync(PATH, Cookie);
-        Console.WriteLine("cookie save ok");
-    }
+    //const string PATH = "Cookie";
+    //public static async Task LoadCookie()
+    //{
+    //    if (File.Exists(PATH))
+    //    {
+    //        Cookie = await File.ReadAllTextAsync(PATH);
+    //        Console.WriteLine("cookie load ok");
+    //    }
+    //    else
+    //    {
+    //        Console.WriteLine("cookie not exist");
+    //    }
+    //}
+    //static async Task SaveCookie()
+    //{
+    //    await File.WriteAllTextAsync(PATH, Cookie);
+    //    Console.WriteLine("cookie save ok");
+    //}
 
     #endregion
 
